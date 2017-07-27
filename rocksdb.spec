@@ -1,6 +1,6 @@
 Name:       rocksdb
 Version:    5.2.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A Persistent Key-Value Store for Flash and RAM Storage
 
 License:    BSD
@@ -64,6 +64,9 @@ make install-shared \
 %{_includedir}/*
 
 %changelog
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Tue Jan 24 2017 Matej Muzila <mmuzila@redhat.com> 5.2.1-1
 - Packaged rocksdb
 
