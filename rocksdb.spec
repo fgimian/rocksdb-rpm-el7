@@ -1,6 +1,6 @@
 Name:       rocksdb
-Version:    5.2.1
-Release:    3%{?dist}
+Version:    5.7.3
+Release:    1%{?dist}
 Summary:    A Persistent Key-Value Store for Flash and RAM Storage
 
 License:    BSD
@@ -54,9 +54,9 @@ make install-shared \
 
 %files
 %{_libdir}/librocksdb.so.5
-%{_libdir}/librocksdb.so.5.2
-%{_libdir}/librocksdb.so.5.2.1
-%license LICENSE
+%{_libdir}/librocksdb.so.5.7
+%{_libdir}/librocksdb.so.5.7.3
+%license COPYING
 
 
 %files devel
@@ -64,6 +64,9 @@ make install-shared \
 %{_includedir}/*
 
 %changelog
+* Tue Sep 26 2017 Matej Mužila <mmuzila@redhat.com> - 5.7.3-1
+- Update to version 5.7.3
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
