@@ -1,6 +1,6 @@
 Name:       rocksdb
 Version:    5.7.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    A Persistent Key-Value Store for Flash and RAM Storage
 
 License:    BSD
@@ -64,6 +64,9 @@ make install-shared \
 %{_includedir}/*
 
 %changelog
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Wed Mar 07 2018 Adam Williamson <awilliam@redhat.com> - 5.7.3-3
 - Rebuild to fix GCC 8 mis-compilation
   See https://da.gd/YJVwk ("GCC 8 ABI change on x86_64")
