@@ -6,6 +6,7 @@ Summary:    A Persistent Key-Value Store for Flash and RAM Storage
 License:    BSD
 URL:        https://github.com/facebook/rocksdb.git
 
+BuildRequires:  gcc-c++
 BuildRequires:    gtest-devel
 
 Source0:    https://github.com/facebook/rocksdb/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
