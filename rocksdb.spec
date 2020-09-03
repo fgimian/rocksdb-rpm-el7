@@ -2,11 +2,16 @@
 
 Name:    rocksdb
 Version: 6.11.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
 License: GPLv2 or ASL 2.0 and BSD
 URL:     %{forgeurl}
+
+
+# rocksdb fails to build successfully on x86
+# https://bugzilla.redhat.com/show_bug.cgi?id=1875284
+ExcludeArch: %{ix86}
 
 BuildRequires: gcc-c++
 BuildRequires: gflags-devel
@@ -67,6 +72,9 @@ make install-shared PREFIX=%{_prefix} LIBDIR=%{_libdir} DESTDIR=%{buildroot}
 %{_includedir}/rocksdb
 
 %changelog
+* Thu Sep 03 2020 Jonny Heggheim <hegjon@gmail.com> - 6.11.4-3
+- Disable building on x86 due to compile errors
+
 * Sat Jul 25 2020 Jonny Heggheim <hegjon@gmail.com> - 6.11.4-2
 - Use RTTI
 
