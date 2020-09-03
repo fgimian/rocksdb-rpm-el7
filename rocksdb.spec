@@ -1,23 +1,28 @@
-Name:       rocksdb
-Version:    5.7.3
-Release:    4%{?dist}
-Summary:    A Persistent Key-Value Store for Flash and RAM Storage
+%global forgeurl https://github.com/facebook/rocksdb
 
-License:    BSD
-URL:        https://github.com/facebook/rocksdb.git
+Name:    rocksdb
+Version: 6.11.4
+Release: 2%{?dist}
+Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
-BuildRequires:  gcc-c++
-BuildRequires:    gtest-devel
+License: GPLv2 or ASL 2.0 and BSD
+URL:     %{forgeurl}
 
-Source0:    https://github.com/facebook/rocksdb/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:     rocksdb-5.2.1-install_path.patch
+BuildRequires: gcc-c++
+BuildRequires: gflags-devel
+BuildRequires: make
+
+%forgemeta
+Source: %{forgesource}
+
+Patch0: https://patch-diff.githubusercontent.com/raw/facebook/rocksdb/pull/7187.patch
 
 %description
-Rocksdb is a library that forms the core building block for a fast key value
+RocksDB is a library that forms the core building block for a fast key value
 server, especially suited for storing data on flash drives. It has a
 Log-Structured-Merge-Database (LSM) design with flexible trade offs between
 Write-Amplification-Factor (WAF), Read-Amplification-Factor (RAF) and
-Space-Amplification-Factor (SAF). It has multithreaded compaction, making it
+Space-Amplification-Factor (SAF). It has multi-threaded compaction, making it
 specially suitable for storing multiple terabytes of data in a single database.
 
 %package devel
@@ -29,42 +34,42 @@ Development files for rocksdb
 
 
 %prep
-%setup -q
+%forgesetup
 
-%patch0 -p1 -b .install_path
-
-rm -rf third-party/gtest-1.7.0
-rm java/benchmark/src/main/java/org/rocksdb/benchmark/DbBenchmark.java
-rm build_tools/gnu_parallel
-
+%patch0 -p1
 
 %build
-export CFLAGS="%{optflags}"
-export EXTRA_CXXFLAGS=" -std=c++11 %{optflags}"
-make %{?_smp_mflags} shared_lib
+%{set_build_flags}
+PORTABLE=1 USE_RTTI=1 %{make_build} shared_lib
 
 %install
-make install-shared \
-         INSTALL_PREFIX=%{buildroot}\
-         LIB_INSTALL_DIR=%{_libdir}\
-         INCLUDE_INSTALL_DIR=%{_includedir}
-
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-
+%{__make} install-shared PREFIX=%{_prefix} LIBDIR=%{_libdir} DESTDIR=%{buildroot}
 
 %files
-%{_libdir}/librocksdb.so.5
-%{_libdir}/librocksdb.so.5.7
-%{_libdir}/librocksdb.so.5.7.3
+%doc README.md
 %license COPYING
+%license LICENSE.Apache
+%license LICENSE.leveldb
+%{_libdir}/librocksdb.so.6
+%{_libdir}/librocksdb.so.6.11
+%{_libdir}/librocksdb.so.6.11.4
 
 
 %files devel
+%doc README.md
+%license COPYING
+%license LICENSE.Apache
+%license LICENSE.leveldb
 %{_libdir}/librocksdb.so
-%{_includedir}/*
+%{_includedir}/rocksdb
 
 %changelog
+* Sat Jul 25 2020 Jonny Heggheim <hegjon@gmail.com> - 6.11.4-2
+- Use RTTI
+
+* Wed Jul 22 2020 Jonny Heggheim <hegjon@gmail.com> - 6.11.4-1
+- Updated to 6.11.4
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
@@ -86,4 +91,3 @@ make install-shared \
 
 * Tue Jan 24 2017 Matej Muzila <mmuzila@redhat.com> 5.2.1-1
 - Packaged rocksdb
-
