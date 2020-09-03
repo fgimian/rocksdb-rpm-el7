@@ -43,7 +43,7 @@ Development files for rocksdb
 PORTABLE=1 USE_RTTI=1 %{make_build} shared_lib
 
 %install
-%{__make} install-shared PREFIX=%{_prefix} LIBDIR=%{_libdir} DESTDIR=%{buildroot}
+make install-shared PREFIX=%{_prefix} LIBDIR=%{_libdir} DESTDIR=%{buildroot}
 
 %files
 %doc README.md
