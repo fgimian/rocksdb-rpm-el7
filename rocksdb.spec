@@ -15,7 +15,10 @@ BuildRequires: make
 %forgemeta
 Source: %{forgesource}
 
-Patch0: https://patch-diff.githubusercontent.com/raw/facebook/rocksdb/pull/7187.patch
+#Modified Makefile to accept standard varibles for install
+#location, including DESTDIR for staged build
+#This have been merged into master https://github.com/facebook/rocksdb/commit/1e59800718b29d4a762b8ac356767a701f968a4d
+Patch1: 001-accept-standard-varibles-for-install-location.patch
 
 %description
 RocksDB is a library that forms the core building block for a fast key value
@@ -36,7 +39,7 @@ Development files for rocksdb
 %prep
 %forgesetup
 
-%patch0 -p1
+%patch1 -p1
 
 %build
 %{set_build_flags}
