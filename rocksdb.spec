@@ -1,12 +1,10 @@
-%global forgeurl https://github.com/facebook/rocksdb
-
 Name:    rocksdb
 Version: 6.11.4
 Release: 3%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
 License: GPLv2 or ASL 2.0 and BSD
-URL:     %{forgeurl}
+URL:     https://github.com/facebook/rocksdb
 
 
 # rocksdb fails to build successfully on x86
@@ -17,8 +15,7 @@ BuildRequires: gcc-c++
 BuildRequires: gflags-devel
 BuildRequires: make
 
-%forgemeta
-Source: %{forgesource}
+Source0: https://github.com/facebook/rocksdb/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 #Modified Makefile to accept standard varibles for install
 #location, including DESTDIR for staged build
@@ -42,12 +39,12 @@ Development files for rocksdb
 
 
 %prep
-%forgesetup
+%setup -q
 
 %patch1 -p1
 
 %build
-%{set_build_flags}
+export CFLAGS="%{optflags}"
 PORTABLE=1 USE_RTTI=1 %{make_build} shared_lib
 
 %install
